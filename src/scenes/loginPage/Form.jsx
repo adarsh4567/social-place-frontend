@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "../../states";
 import Dropzone from "react-dropzone";
 import FlexBetween from "../../components/FlexBetween";
+import { url } from "../../backendUrl/url";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -64,7 +65,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
    
     const savedUserResponse = await fetch(
-        "http://localhost:5000/auth/register",
+        `${url}/auth/register`,
         {
           method: "POST",
           body: formData,
