@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   IconButton,
@@ -21,14 +21,18 @@ import {
   Close,
 } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { setMode, setLogOut } from "../../states";
+import { setMode, setLogOut,setAllUser } from "../../states";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../components/FlexBetween";
+import { url } from "../../backendUrl/url";
 const Navbar = () => {
     const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const user = useSelector((state) => state.user);
+    const users = useSelector((state)=> state.users)
+    const token = useSelector((state) => state.token);
+    const [search,setSearch] = useState();
     const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   
     const theme = useTheme();
@@ -39,7 +43,21 @@ const Navbar = () => {
     const alt = theme.palette.background.alt;
   
     const fullName = `${user?.firstName} ${user?.lastName}`;
-  
+    const allUserFullName = `${users?.firstName} ${users?.lastName}`
+
+    const getUsers = async () => {
+      const response = await fetch(`${url}/users/getall`, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      const data = await response.json();
+      dispatch(setAllUser({ users: data }));
+    };
+
+    useEffect(()=>{
+     getUsers();
+    },[])
+    console.log(users,'users');
     return (
       <FlexBetween padding="1rem 6%" backgroundColor={alt}>
         <FlexBetween gap="1.75rem">
@@ -64,8 +82,14 @@ const Navbar = () => {
               gap="3rem"
               padding="0.1rem 1.5rem"
             >
-              <InputBase placeholder="Search..." />
-              <IconButton>
+              <InputBase onChange={(e)=> setSearch(e.target.value) } placeholder="Search..." />
+              <IconButton onClick={()=> {
+                const singleUser = users?.filter((item)=>{
+                  return item.firstName==search
+                });
+                const derivedUser = singleUser[0]._id
+                navigate(`/profile/${derivedUser}`)
+              }}>
                 <Search />
               </IconButton>
             </FlexBetween>

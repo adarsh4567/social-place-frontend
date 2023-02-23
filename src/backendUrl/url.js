@@ -1,1 +1,1 @@
-export const url = "https://social-place.onrender.com"
+export const url = "http://localhost:5000"
