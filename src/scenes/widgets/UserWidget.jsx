@@ -12,6 +12,8 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { url } from "../../backendUrl/url";
+import linkedin from '../../social/linkedIn.png'
+import twitter from '../../social/twitter.png'
 
 
 const UserWidget = ({userId,picturePath})=>{
@@ -120,7 +122,7 @@ const UserWidget = ({userId,picturePath})=>{
     
             <FlexBetween gap="1rem" mb="0.5rem">
               <FlexBetween gap="1rem">
-                <img src="https://raw.githubusercontent.com/ed-roh/mern-social-media/master/client/public/assets/twitter.png" alt="twitter" />
+                <img src={twitter} alt="twitter" />
                 <Box>
                   <Typography color={main} fontWeight="500">
                     Twitter
@@ -133,7 +135,7 @@ const UserWidget = ({userId,picturePath})=>{
     
             <FlexBetween gap="1rem">
               <FlexBetween gap="1rem">
-                <img src="https://raw.githubusercontent.com/ed-roh/mern-social-media/master/client/public/assets/linkedin.png" alt="linkedin" />
+                <img src={linkedin} alt="linkedin" />
                 <Box>
                   <Typography color={main} fontWeight="500">
                     Linkedin
