@@ -5,7 +5,7 @@ import {
     FavoriteOutlined,
     ShareOutlined,
   } from "@mui/icons-material";
-  import { Box, Divider, IconButton, Typography, useTheme } from "@mui/material";
+  import { Box, Divider, IconButton, Skeleton, Typography, useTheme } from "@mui/material";
   import FlexBetween from "../../components/FlexBetween";
   import Friend from "../../components/Friend";
   import WidgetWrapper from "../../components/WidgetWrapper";
@@ -49,6 +49,16 @@ import { url } from "../../backendUrl/url";
       const updatedPost = await response.json();
       dispatch(setPost({ post: updatedPost }));
     };
+
+    if(!postId){
+      return <>
+        <div style={{display:'flex', justifyContent:'flex-start',alignItems:'center',marginTop:'3rem'}}>
+         <Skeleton variant="circular" width={60} height={60}/>
+         <Skeleton variant="rounded" width={250} height={30} style={{marginLeft:'1rem'}}/>
+         </div>
+          <Skeleton variant="rounded" width={550} height={700} style={{marginTop:'1.5rem'}} />
+      </>
+    }
   
     return (
       <WidgetWrapper m="2rem 0">

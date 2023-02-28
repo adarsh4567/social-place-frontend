@@ -1,16 +1,18 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Skeleton, Typography, useTheme } from "@mui/material";
+import { useSelector } from "react-redux";
 import Friend from "../../components/Friend";
 import WidgetWrapper from "../../components/WidgetWrapper";
-import { useEffect } from "react";
-import { useDispatch,useSelector } from "react-redux";
-import { setFriends } from "../../states";
+
 
 const FriendListWidget = ({ userId }) => {
-    const dispatch = useDispatch();
     const { palette } = useTheme();
-    const token = useSelector((state) => state.token);
     const users = useSelector((state)=> state.users);
      const suggestedUser = users.slice(0,4);
+     if(!users){
+      return <>
+         <Skeleton variant="rounded" width={340} height={400} />
+      </>
+     }
     return (
       <WidgetWrapper>
         <Typography
