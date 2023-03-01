@@ -50,7 +50,7 @@ import { url } from "../../backendUrl/url";
       dispatch(setPost({ post: updatedPost }));
     };
 
-    if(!postId){
+    if(!picturePath){
       return <>
         <div style={{display:'flex', justifyContent:'flex-start',alignItems:'center',marginTop:'3rem'}}>
          <Skeleton variant="circular" width={60} height={60}/>
