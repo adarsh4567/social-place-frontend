@@ -1,9 +1,15 @@
 import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
+import { useState } from "react";
+import { Loader } from "../../Loader/Loader";
 import Form from "./Form";
 
 const LoginPage = () => {
   const theme = useTheme();
+  const [isLoading,setIsLoading]=useState(false);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+  if(isLoading){
+    return <Loader/>
+  }
   return (
     <Box>
       <Box
@@ -27,7 +33,7 @@ const LoginPage = () => {
         <Typography fontWeight="500" variant="h5" sx={{ mb: "1.5rem" }}>
           Welcome to ShareUs, the Social Media for Everyone
         </Typography>
-        <Form />
+        <Form isLoading={isLoading} setIsLoading={setIsLoading} />
       </Box>
     </Box>
   );
